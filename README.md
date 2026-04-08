@@ -199,4 +199,4 @@ Rebase بدل merge العشوائي
 
 
 
-last
+last -1 
