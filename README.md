@@ -26,7 +26,7 @@ git config --list
 
 📦 المرحلة 2: إنشاء وربط مشروع
 إنشاء Repo جديد:
-git init
+git init 
 ربطه مع GitHub:
 git remote add origin https://github.com/username/repo.git
 جلب البيانات:
