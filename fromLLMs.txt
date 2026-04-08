@@ -133,3 +133,21 @@ git push origin v1.0
 git stash
 git stash pop
 
+
+# Reset (مهم!)
+git reset --mixed HEAD~1   # يخلّي الملفات إلى الحالة المخزنة، لكنه لا يُفقد Commit
+
+# Log commits
+git log --oneline --graph --decorate
+
+# Diff between commits
+git diff commit-abc-def123
+
+```
+
+---
+
+### 🎉 ختامًا  
+Git هو أداة قوية وسهلة عندما تتقنى بأوامرها. ابدأ بالأساسيات، ثم استكشف أوامر المتقدمة تدريجياً؛ ستلتقي rápidamente بقدرة على إدارة مشروعك بكفاءة وموثوقية.
+
+*إذا احتجت توضيحًا إضافيًا حول أي أمر معين أو مثال عملي أكثر تفصيلًا، لا تتردد في سؤالني!*
