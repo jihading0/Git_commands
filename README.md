@@ -24,17 +24,15 @@ git config --list
 
 📌 في الشركات: يتم ربط Git مع حسابك على GitHub/GitLab.
 
+📦 المرحلة 2: إنشاء وربط مشروع
+إنشاء Repo جديد:
+git init
+ربطه مع GitHub:
+git remote add origin https://github.com/username/repo.git
+جلب البيانات:
+git clone <repo-url>
 
-
-
-
-
-
-
-
-
-
-
+📌 في الشركات: غالبًا تستخدم clone وليس init.
 
 
 📁 المرحلة 3: دورة العمل الأساسية (Core Workflow)
