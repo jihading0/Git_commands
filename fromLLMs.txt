@@ -1,0 +1,135 @@
+## دليل شامل لأوامر **Git**  
+*(من أساسيات إلى أوامر متقدمة – كل أمر مع مثال واستخدام عملي)*  
+
+---
+
+### 1️⃣ الأوامر الأساسية (الـ **Working‑Tree**)
+
+| الأمر | ما يفعله؟ | مثال |
+|------|-----------|------|
+| `git status` | إظهار حالة الملفات في الـ *working tree* (مجلد المشروع) و compares مع الـ index. | ```bash git status``` |
+| `git add <file>` أو `git add .` | حفظ التغييرات إلى الـ index (مرحلة “staging”). | ```bash git add -u``` أو ```bash git add .``` |
+| `git commit -m "رسالة commits" [--amend]` | إنشاء **commit** جديد من ما في الـ index. `--amend` تعديل commit الأخير. | ```bash git commit -m "إضافة ملف جديد"` |
+| `git log --oneline` | عرض سجل commits بشكل مختصر (رأسCommit + رسالة). | ```bash git log --oneline``` |
+| `git diff` | مقارنة الملفات في الـ working tree مع الـ index أو بين Commits. | ```bash git diff HEAD~1..HEAD``` |
+| `git checkout <file>` أو `git restore <file>` | إرجاع ملف إلى الحالة المخزنة (سهل الاستخدام). | ```bash git checkout master``` |
+| `git pull` / `git fetch && git merge FETCH_HEAD` | تحديث المشروع من الـ remote. | ```bash git pull origin main``` |
+
+---
+
+### 2️⃣ إدارة **branches** (فروع)
+
+| الأمر | ما يفعله؟ | مثال |
+|------|-----------|------|
+| `git branch` | عرض الفروع المتاحة. | ```bash git branch``` |
+| `git branch -d <branch>` أو `git branch -D <branch>` | حذف فرع محلي (أو نهائي). | ```bash git branch -D feature-x``` |
+| `git checkout <branch>` أو `git switch <branch>` | الانتقال إلىBranch آخر. (`switch` هو أحدث) | ```bash git switch develop``` |
+| `git merge <branch>` / `git rebase <branch>` | دمج الفروع (merge = دمج صافي، rebase = إعادة كتابة history). | ```bash git merge master``` |
+| `git pull --rebase` | Pull مع rewrite history لتجنب Konflct. | ```bash git pull --rebase origin main``` |
+
+---
+
+### 3️⃣ إدارة **tags** (التسميات)
+
+| الأمر | ما يفعله؟ | مثال |
+|------|-----------|------|
+| `git tag <tagname>` | إنشاء Tag محلي. | ```bash git tag v1.2``` |
+| `git branch -a` أو `git describe --tags HEAD` | عرض جميع tags. | ```bash git tag -l``` |
+| `git push origin <tagname>` | رفع الـ tag إلى remote. | ```bash git push origin v1.2``` |
+
+---
+
+### 4️⃣ إدارة **stash** (قفل التغييرات)
+
+| الأمر | ما يفعله؟ | مثال |
+|------|-----------|------|
+| `git stash` | حفظ التغيّر غير committed مؤقتًا. | ```bash git stash``` |
+| `git stash pop` أو `git stash apply` | استعادة الـ stash وتطبيقها في الـ working tree (pop = استرجاع وتطبيق). | ```bash git stash pop``` |
+
+---
+
+### 5️⃣ الأوامر المتقدمة
+
+| الأمر | ما يفعله؟ | مثال |
+|------|-----------|------|
+| `git reset <mode>` | إعادة ضبط ملف/Commit. `<mixed>`, `<soft>`, `<hard>` حسب الحاجة. | ```bash git reset --mixed HEAD~1``` (مهم جدًا). |
+| `git revert <commit>` | إنشاء commit عكسي يعكس commit المحدد. | ```bash git revert a1b2c3d``` |
+| `git filter-branch` / `git filter-repo` | حذف أو تعديل تاريخ Commit من الـ history (مختصرة). | ```bash git filter-repo --reverse-filter …``` |
+| `git reflog` | سجل History للـ refs (branches, tags) – مفيد في حل الأخطاء. | ```bash git reflog``` |
+
+---
+
+### 6️⃣ أدوات التهيئة (Setup)
+
+| الأمر | ما يفعله؟ | مثال |
+|------|-----------|------|
+| `git config --global user.name "اسمك"` | ضبط اسم المستخدم عالميًا. | ```bash git config --global user.name "أحمد"``` |
+| `git config --global user.email "email@domain.com"` | ضبط البريد الإلكتروني عالميًا. | ```bash git config --global user.email "ahmad@example.com"``` |
+| `git config --local core.autocrlf false` | إيقاف التحويل تلقائياً (Windows ↔︎ Unix). | … |
+
+---
+
+### 7️⃣ أوامر **debug / diagnostic**
+
+| الأمر | ما يفعله؟ | مثال |
+|------|-----------|------|
+| `git difftool <repo> --staged` | عرض التغيّرات المستقمة مع أداةavis (مثل `meld`). | ```bash git difftool -c``` |
+| `git blame <file>` | إظهار تاريخ كل كلمة في ملف. | ```bash git blame src.js``` |
+
+---
+
+## 📚 نصائح سريعة للـ **Git**  
+
+1. **الالتزام بـ “commit small”** – كل commit يجب أن يوضح خطوة أو مجموعة من الخطوات بوضوح.  
+2. **استخدام `git status` بانتظام** لتفادي عدم معرفة ما إذا كان هناك تغييرات غيرCommited.  
+3. **اختبار الفروع قبل دمجها** باستخدام `pull request` أو `merge`.  
+4. **تجنب الـ “hard reset” إلا في حالات طارئة**؛ يمكن أن يفسد history للجميع.  
+5. **استخدام `.gitignore`** لحفظ الملفات التي لا تحتاج إلى تتبع (مثل ملفات البيئة، إعدادات التطوير).  
+
+---
+
+## 📦 ملخص الأوامر (قائمة مختصرة)
+
+```bash
+# الإعداد
+git config --global user.name "اسمك"
+git config --global user.email "email@domain.com"
+
+# إنشاء مشروع جديد
+git init
+git add .
+git commit -m "Initial commit"
+
+# إضافة ملف/تغيّر إلى index
+git add <file>          # أو git add .
+
+# Commit
+git commit -m "رسالة"
+
+# عرض الحالة
+git status
+
+# التزامن مع remote (pull)
+git pull               # أو git fetch && git merge FETCH_HEAD
+
+# إنشاءBranch
+git branch newbranch
+git checkout newbranch   # أو git switch newbranch
+
+# دمج فرع
+git merge master
+
+# رفع cambios إلى remote
+git push origin main
+
+# حذف Branch محلي
+git branch -d feature-x
+
+# إنشاء Tag
+git tag v1.0
+git push origin v1.0
+
+# Stash التغيّرات غير committed
+git stash
+git stash pop
+
